@@ -32,13 +32,16 @@ public class PlayerControllerAi : MonoBehaviour
         if (Vector3.Distance(_cachedTargetPosition, _target.position) > Mathf.Epsilon) // _target が移動したら
         {
             _cachedTargetPosition = _target.position; // 移動先の座標を保存する
-            _agent.SetDestination(_cachedTargetPosition); // Navmesh Agent に目的地をセットする（Vector3 で座標を設定していることに注意。Transform でも GameObject でもなく、Vector3 で目的地を指定する）
+            //_agent.SetDestination(_cachedTargetPosition); // Navmesh Agent に目的地をセットする（Vector3 で座標を設定していることに注意。Transform でも GameObject でもなく、Vector3 で目的地を指定する）
+            _agent.destination = _cachedTargetPosition;
         }
 
         // m_animator がアサインされていたら Animator Controller にパラメーターを設定する
         if (_animator)
         {
             _animator.SetFloat("Speed", _agent.velocity.magnitude);
+            _animator.SetBool("IsONoff", _agent.isOnOffMeshLink);
         }
+        //Mathf.Epsilon とても小さい値
     }
 }
